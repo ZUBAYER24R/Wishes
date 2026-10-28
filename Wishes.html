@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090711">
+<title>Wishora — Feel Every Word</title>
+<style>
+:root{--bg:#090711;--panel:#171122;--pink:#ff62b5;--purple:#a98bff;--blue:#70caff;--text:#fff5ff;--muted:#b9adc9;--border:#ffffff19}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 10% 0%,#39133e66,transparent 40%),radial-gradient(ellipse at 90% 20%,#142d5666,transparent 38%),var(--bg);color:var(--text);font-family:system-ui,Arial,sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 5%;border-bottom:1px solid var(--border);background:#090711eF;backdrop-filter:blur(16px)}
+.logo{font-size:25px;font-weight:900;letter-spacing:-1px}.logo span{color:var(--pink)}
+.navright{display:flex;gap:9px;flex-wrap:wrap}
+.pill,.btn,.cat{border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:var(--text);background:#ffffff08;transition:.2s}
+.pill{border-radius:30px}.btn:hover,.cat:hover,.pill:hover{transform:translateY(-2px);border-color:#ff62b588}
+.primary{border:0;background:linear-gradient(110deg,#ed4fa5,#9865f7);font-weight:750}
+.hero{max-width:1000px;margin:auto;padding:75px 20px 55px;text-align:center}
+.eyebrow{display:inline-block;padding:8px 14px;border:1px solid #ff62b544;border-radius:30px;color:#ffc5e5;background:#ff62b510;font-size:12px;letter-spacing:1px}
+h1{font-size:clamp(42px,8vw,78px);line-height:1.05;letter-spacing:-3px;margin:22px 0}
+.gradient{background:linear-gradient(100deg,#ff79c6,#b49aff 48%,#76d9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p,.sub{color:var(--muted);line-height:1.8}.hero p{max-width:670px;margin:auto}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:25px}
+.section{max-width:1150px;margin:auto;padding:28px 20px 48px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+h2{font-size:clamp(25px,4vw,35px);margin:0 0 7px}
+.categories{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+.cat{border-radius:30px;padding:8px 13px;color:#d8cbe7}
+.cat.active{background:#ff62b526;border-color:#ff62b5aa}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.tools input,.tools select,.field{background:#ffffff08;border:1px solid var(--border);color:var(--text);border-radius:12px;padding:12px 14px;min-width:0}
+.tools input{flex:1;min-width:190px}select option{background:#171020}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.card,.panel{background:linear-gradient(145deg,#1b1429ef,#100d19f5);border:1px solid var(--border);border-radius:18px;padding:18px}
+.card{display:flex;flex-direction:column;min-height:260px;transition:.25s;animation:enter .3s ease both}
+.card:hover{transform:translateY(-5px);border-color:#d78bff70;box-shadow:0 15px 40px #0005}
+.cardtop{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.tag{font-size:11px;color:#f7a6d9;background:#ff62b516;border:1px solid #ff62b52b;padding:6px 9px;border-radius:30px}
+.heart{background:none;border:0;color:#ff82c2;font-size:23px}
+.card h3{font-size:18px;margin:16px 0 9px}
+.card p{font-size:13px;line-height:1.9;color:#e1d5ec;white-space:pre-wrap;overflow-wrap:anywhere;flex:1}
+.cardactions{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:12px;padding:9px 11px}
+.empty{text-align:center;padding:35px;color:var(--muted);border:1px dashed var(--border);border-radius:15px;grid-column:1/-1}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.panel h3{margin-top:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:18px}
+.item{display:flex;flex-direction:column;gap:7px;min-width:0}.item label{font-size:12px;color:#d5c5e6}
+.field{width:100%;font-size:14px}.item.full{grid-column:1/-1}
+textarea.field{resize:vertical;min-height:135px;line-height:1.7}
+.field::placeholder{color:#93849f}
+.preview{border:1px solid #ff62b544;border-radius:16px;padding:20px;background:radial-gradient(ellipse at top right,#91376a22,transparent 65%),#ffffff04;min-height:270px}
+.preview h3{font-size:25px;margin:14px 0}.previewmsg{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.9;color:#e7d9ef;font-size:14px}
+.sign{color:#c9a6ff;margin-top:18px;font-size:13px}
+.savedlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.saveditem{border:1px solid var(--border);border-radius:14px;padding:15px;background:#ffffff04}
+.saveditem p{font-size:13px;color:var(--muted);line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.footer{border-top:1px solid var(--border);padding:28px 20px;text-align:center;color:#9385a6;font-size:12px;line-height:2}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,15px);background:#24162f;border:1px solid #ff62b566;padding:12px 17px;border-radius:12px;z-index:30;opacity:0;pointer-events:none;transition:.2s;max-width:90%;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}}
+@media(max-width:540px){.grid,.formgrid,.savedlist{grid-template-columns:1fr}.nav{padding:14px}.logo{font-size:21px}.hero{padding:55px 17px 40px}h1{letter-spacing:-2px}.section{padding-left:14px;padding-right:14px}.item.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header class="nav">
+<a href="#" class="logo">wish<span>ora</span> ✦</a>
+<div class="navright"><a class="pill" href="#messages">Explore</a><a class="pill" href="#create">✍ Create</a></div>
+</header>
+
+<section class="hero">
+<div class="eyebrow">✧ A little place for big feelings ✧</div>
+<h1>Some feelings<br>deserve <span class="gradient">beautiful words.</span></h1>
+<p>For the love you cannot explain, the person you miss, the birthday you want to make special, and every feeling your heart wants to say. Find your words. Make them yours. ♡</p>
+<div class="actions"><a href="#messages" class="btn primary">♡ Explore messages</a><a href="#create" class="btn">✦ Write your own</a></div>
+</section>
+
+<section class="section" id="messages">
+<div class="head"><div><h2>Words from the <span class="gradient">heart</span></h2><div class="sub">Choose a feeling. Find your words. Make someone's day.</div></div><div class="sub" id="count">120+ messages ✧</div></div>
+<div class="categories" id="categories"></div>
+<div class="tools"><input id="search" type="search" placeholder="🔎 Search messages..."><select id="lang"><option value="all">All languages</option><option>English</option><option>বাংলা</option></select></div>
+<div class="grid" id="grid"></div>
+</section>
+
+<section class="section" id="create">
+<div class="head"><div><h2>Create your own <span class="gradient">feeling</span></h2><div class="sub">Your story. Your words. Your own little masterpiece.</div></div></div>
+<div class="layout">
+<div class="panel">
+<h3>✍ The message studio</h3><div class="sub">Write something real. Make it personal.</div>
+<div class="formgrid">
+<div class="item"><label for="title">Message title</label><input class="field" id="title" placeholder="My favourite person"></div>
+<div class="item"><label for="category">Category</label><select class="field" id="category"><option>Love</option><option>Deep Love</option><option>Birthday</option><option>Anniversary</option><option>Secret Crush</option><option>Missing You</option><option>Long Distance</option><option>Heartbreak</option><option>Apology</option><option>Friendship</option><option>Thank You</option><option>Feelings</option></select></div>
+<div class="item"><label for="to">To (optional)</label><input class="field" id="to" placeholder="Someone special"></div>
+<div class="item"><label for="from">From (optional)</label><input class="field" id="from" placeholder="Your name"></div>
+<div class="item full"><label for="message">Your message</label><textarea class="field" id="message" placeholder="Write what your heart wants to say..."></textarea></div>
+<div class="item full"><label for="ownlang">Language</label><select class="field" id="ownlang"><option>English</option><option>বাংলা</option><option>Mixed</option></select></div>
+<div class="item full" style="flex-direction:row;flex-wrap:wrap"><button class="btn primary" id="save">♡ Save my wish</button><button class="btn" id="clear">Clear</button><button class="btn" id="inspire">✦ Inspire me</button></div>
+</div>
+</div>
+<div class="panel">
+<h3>✧ Live preview</h3><div class="sub" style="margin-bottom:15px">See your words come to life.</div>
+<div class="preview"><div class="tag">✦ A LITTLE PIECE OF MY HEART</div><h3 id="ptitle" class="gradient">Your beautiful message</h3><div class="sub" id="pto"></div><div class="previewmsg" id="pmsg">Your message will appear here as you write...</div><div class="sign" id="psign">With love, always ♡</div></div>
+<div class="actions" style="justify-content:flex-start"><button class="btn" id="copyown">▣ Copy message</button><button class="btn" id="heartbtn">♡ Send some love</button></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="saved">
+<div class="head"><div><h2>Your little <span class="gradient">collection</span></h2><div class="sub">Saved messages stay in this browser on this device.</div></div><button class="btn" id="clearSaved">Clear collection</button></div>
+<div class="savedlist" id="savedList"></div>
+</section>
+<footer class="footer"><div style="font-size:23px;font-weight:900;color:white">wish<span style="color:var(--pink)">ora</span> ✦</div><div>Made for the feelings that make us human. ♡</div><div>Say it softly. Say it honestly. Say it with love.</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const pairs = [
+["Love","A Love I Would Choose Again","If I could live a thousand lives, I would still look for you. My imperfect heart feels at home with yours. ♡","যদি হাজারটা জীবনও পেতাম, প্রতিটিতেই তোমাকে খুঁজতাম। তোমার কাছেই আমার অসম্পূর্ণ হৃদয় ঘরের মতো শান্তি খুঁজে পায়। ❤️"],
+["Love","My Favourite Person","You are not just someone I love. You are the person I want to tell everything to, from my biggest dreams to the smallest things.","তুমি শুধু আমার ভালোবাসার মানুষ নও। আমার বড় স্বপ্ন থেকে ছোট্ট ঘটনাও যার সঙ্গে ভাগ করে নিতে ইচ্ছে করে, সেই মানুষ তুমি।"],
+["Love","You Make Life Softer","Some days are hard, but one conversation with you can make the world feel softer. Thank you for being my calm.","কিছু দিন ভীষণ কঠিন হয়, কিন্তু তোমার সঙ্গে একটু কথা বললেই পৃথিবীটা নরম মনে হয়। আমার শান্তি হয়ে থাকার জন্য ধন্যবাদ।"],
+["Love","My Unexpected Happiness","I never planned to care this much, but somehow you became a beautiful part of my everyday life.","এতটা আপন করে নেব ভাবিনি, অথচ তুমি কখন যে আমার প্রতিদিনের সুন্দর একটা অংশ হয়ে গেলে, বুঝতেই পারিনি।"],
+["Love","Little Things, Big Feelings","Your messages, your laugh, your random stories—little things from you mean more to me than you know.","তোমার মেসেজ, হাসি, আর ছোট ছোট গল্প—তোমার এই সাধারণ বিষয়গুলোই আমার কাছে অসাধারণ।"],
+["Love","A Place in My Heart","No matter how busy life gets, there will always be a little corner of my heart that smiles when it thinks of you.","জীবন যত ব্যস্তই হোক, আমার হৃদয়ে একটা জায়গা সবসময় থাকবে, যেখানে তোমার কথা ভাবলেই হাসি আসে।"],
+["Deep Love","Love That Understands","I want a love that listens without judging, stays honest through hard talks, and chooses kindness every day.","আমি এমন ভালোবাসা চাই, যেখানে বিচার না করে শোনা হবে, কঠিন কথাতেও সততা থাকবে, আর প্রতিদিন যত্ন বেছে নেওয়া হবে।"],
+["Deep Love","You Feel Like Home","Home is the place where I can be quiet, imperfect, and completely myself. With you, I feel that way.","ঘর মানে যেখানে চুপ থাকতে পারি, ভুল করতে পারি, নিজের মতো থাকতে পারি। তোমার পাশে আমি সেই অনুভূতিটাই পাই।"],
+["Deep Love","A Promise of Effort","I cannot promise a perfect relationship. I can promise honest conversations, respect, patience, and a willingness to grow.","নিখুঁত সম্পর্কের প্রতিশ্রুতি দিতে পারি না। তবে সততা, সম্মান, ধৈর্য আর একসঙ্গে শেখার চেষ্টা করতে পারি।"],
+["Deep Love","Growing Together","I hope we become better people beside each other, not smaller versions of ourselves. Let our love make room for both dreams.","আমি চাই আমরা একে অপরের পাশে আরও ভালো মানুষ হয়ে উঠি, নিজেদের হারিয়ে নয়। আমাদের ভালোবাসায় দুজনের স্বপ্নেরই জায়গা থাকুক।"],
+["Deep Love","Beyond Beautiful Words","Love is not only saying the right things. It is showing up, listening, respecting boundaries, and caring when life gets difficult.","ভালোবাসা শুধু সুন্দর কথা নয়। পাশে থাকা, মন দিয়ে শোনা, সীমারেখার সম্মান করা আর কঠিন সময়েও যত্ন নেওয়াই ভালোবাসা।"],
+["Deep Love","My Quiet Forever","I do not need a perfect story. I want peaceful mornings, honest talks, shared laughter, and a love that keeps learning.","আমার নিখুঁত গল্প চাই না। চাই শান্ত সকাল, খোলামেলা কথা, একসঙ্গে হাসি আর প্রতিদিন শিখতে থাকা ভালোবাসা।"],
+["Birthday","A Beautiful New Chapter","Happy birthday! May this year bring you peace, courage, sincere people, and dreams that slowly become reality. 🎂","শুভ জন্মদিন! তোমার নতুন বছর ভরে উঠুক শান্তি, সাহস, আন্তরিক মানুষ আর ধীরে ধীরে পূরণ হওয়া স্বপ্নে। 🎂"],
+["Birthday","For Someone Special","Happy birthday to a person who deserves happiness that lasts long after the candles go out. Keep shining in your own way.","শুভ জন্মদিন সেই মানুষটিকে, যার আনন্দ মোমবাতি নিভে যাওয়ার পরও থেকে যাক। নিজের মতো করে উজ্জ্বল থেকো।"],
+["Birthday","My Birthday Prayer for You","May you find reasons to smile on difficult days, strength when life feels heavy, and people who love you honestly.","তোমার কঠিন দিনেও হাসির কারণ মিলুক, ভারী সময়ে সাহস পাও, আর এমন মানুষ পাও যারা মন থেকে তোমাকে ভালোবাসে।"],
+["Birthday","To My Favourite Human","Your existence makes someone's world brighter. I hope your birthday reminds you how worthy you are of love and kindness.","তোমার অস্তিত্ব কারও পৃথিবীকে আরও সুন্দর করে। জন্মদিন তোমাকে মনে করিয়ে দিক, তুমি কতটা ভালোবাসা ও মমতার যোগ্য।"],
+["Birthday","Another Year, More Dreams","Happy birthday! May you learn new things, laugh without fear, and become proud of the person you are becoming.","শুভ জন্মদিন! নতুন কিছু শেখো, নির্ভয়ে হাসো, আর যে মানুষ হয়ে উঠছ, তাকে নিয়ে গর্বিত হও।"],
+["Birthday","শুভ জন্মদিন, প্রিয় মানুষ","আজকের দিনটা তোমার মতোই সুন্দর হোক। তোমার মনের ইচ্ছেগুলো পূরণ হোক, আর প্রতিটি নতুন সকাল নতুন আশার আলো নিয়ে আসুক। 🎂❤️","Happy birthday, my dear. May your day be as beautiful as you are, your wishes come true, and every morning bring fresh hope. 🎂❤️"],
+["Birthday","A Wish from My Heart","On your special day, I wish you less worry, more laughter, meaningful friendships, and the courage to chase what matters.","তোমার বিশেষ দিনে চাই দুশ্চিন্তা কমুক, হাসি বাড়ুক, বন্ধুত্ব গভীর হোক, আর প্রিয় স্বপ্নের পেছনে ছুটতে সাহস পাও।"],
+["Anniversary","Still Choosing You","Another year, another chapter. Thank you for the memories and lessons. May we keep choosing respect, honesty, and tenderness.","আরও একটি বছর, আরও একটি অধ্যায়। স্মৃতি আর শিক্ষা দেওয়ার জন্য ধন্যবাদ। আমরা যেন সম্মান, সততা আর মমতা বেছে নিই।"],
+["Anniversary","Our Story Continues","Our story is made of ordinary days, little efforts, laughter, and lessons. I hope the chapters ahead are kinder and brighter.","আমাদের গল্প তৈরি হয়েছে সাধারণ দিন, ছোট ছোট চেষ্টা, হাসি আর শিক্ষা দিয়ে। সামনের অধ্যায়গুলো আরও সুন্দর হোক।"],
+["Anniversary","Thank You for Staying","Thank you for walking beside me, for listening, and for trying even when things were not easy. Happy anniversary. ❤️","পাশে হাঁটার জন্য, কথা শোনার জন্য আর কঠিন সময়েও চেষ্টা করার জন্য ধন্যবাদ। শুভ বিবাহবার্ষিকী/সম্পর্কের বার্ষিকী। ❤️"],
+["Anniversary","Many More Memories","May we keep making memories, learning from mistakes, and finding joy in the little things we share. Happy anniversary.","আমরা যেন আরও স্মৃতি তৈরি করি, ভুল থেকে শিখি আর একসঙ্গে কাটানো ছোট মুহূর্তেও আনন্দ খুঁজে পাই। শুভ বার্ষিকী।"],
+["Anniversary","Our Favourite Chapter","You are part of a chapter I will always treasure. May our future be filled with understanding, laughter, and shared dreams.","তুমি আমার জীবনের এমন এক অধ্যায়, যেটা আমি যত্নে রাখব। আমাদের ভবিষ্যৎ বোঝাপড়া, হাসি আর একসঙ্গে দেখা স্বপ্নে ভরে উঠুক।"],
+["Anniversary","একসঙ্গে আরও অনেকটা পথ","শুভ বার্ষিকী। সুন্দর সময়ের মতো কঠিন সময়েও আমরা যেন একে অপরকে শুনি, সম্মান করি, আর ভালোবাসাকে যত্নে বড় করি। ❤️","Happy anniversary. May we listen, respect each other, and nurture our love in both beautiful and difficult times. ❤️"],
+["Secret Crush","A Little Secret","Sometimes I smile at your messages longer than I should. Maybe you have noticed, maybe not. I just wanted you to know you feel special to me.","তোমার মেসেজ দেখে কখনো কখনো অকারণেই অনেকক্ষণ হাসি। তুমি বুঝেছ কি না জানি না, শুধু জানাতে চাই—তুমি আমার কাছে বিশেষ।"],
+["Secret Crush","The Way You Smile","Your smile has a strange talent: it stays in my mind long after the moment has passed.","তোমার হাসির অদ্ভুত ক্ষমতা আছে—মুহূর্তটা চলে যাওয়ার পরও সেটা আমার মনে থেকে যায়।"],
+["Secret Crush","I Look for Your Name","I do not know when your name became my favourite notification, but seeing it can make an ordinary day feel special.","কখন তোমার নাম আমার প্রিয় নোটিফিকেশন হয়ে গেল জানি না, তবে সেটা দেখলেই সাধারণ দিনটাও বিশেষ লাগে।"],
+["Secret Crush","A Quiet Confession","I like you. No pressure, no expectation—just an honest feeling I wanted to share with you.","তোমাকে আমার ভালো লাগে। কোনো চাপ বা প্রত্যাশা নয়—শুধু সত্যি একটা অনুভূতি তোমাকে জানাতে চাইলাম।"],
+["Secret Crush","Maybe You Don't Know","You probably have no idea how often a small thing you say stays in my thoughts throughout the day.","তুমি হয়তো জানো না, তোমার বলা ছোট্ট একটা কথা সারাদিন কতবার আমার মনে ফিরে আসে।"],
+["Secret Crush","If You Only Knew","If you knew how happy a simple conversation with you makes me, you might understand why I look forward to it.","তোমার সঙ্গে সাধারণ একটা কথাও আমাকে কতটা আনন্দ দেয় জানতে, হয়তো বুঝতে কেন তোমার সঙ্গে কথা বলার অপেক্ষায় থাকি।"],
+["Missing You","I Miss the Little Things","I miss our random talks, silly jokes, and the comfort of knowing you were just a message away.","আমাদের হঠাৎ শুরু হওয়া কথা, বোকা বোকা হাসি আর তুমি মেসেজের ওপাশে আছ—এই স্বস্তিটা খুব মিস করি।"],
+["Missing You","You Cross My Mind","There is no special hour for missing you. A song, a street, or a quiet moment can bring you back to mind.","তোমাকে মনে পড়ার নির্দিষ্ট সময় নেই। একটা গান, একটা রাস্তা কিংবা নীরব মুহূর্তেও তুমি মনে পড়ে যাও।"],
+["Missing You","A Little Empty Without You","Some days feel a little incomplete because the person I want to tell everything to is not here.","কিছু দিন একটু অসম্পূর্ণ লাগে, কারণ যাকে সব কথা বলতে চাই, সে কাছে থাকে না।"],
+["Missing You","Wish You Were Here","I wish you were here for the ordinary moments, not just the special ones. Those are the moments I miss the most.","শুধু বিশেষ মুহূর্তে নয়, সাধারণ সময়গুলোতেও তোমাকে পাশে চাই। আসলে সেই সাধারণ মুহূর্তগুলোই সবচেয়ে বেশি মিস করি।"],
+["Missing You","Still Close in My Thoughts","Even when we do not talk, little memories of you find their way into my day.","কথা না হলেও তোমার ছোট ছোট স্মৃতিগুলো কোনো না কোনোভাবে আমার দিনের মধ্যে এসে পড়ে।"],
+["Missing You","তোমাকে খুব মনে পড়ে","দূরে আছো, তবু অনেক ভাবনার ভেতর তুমি কাছে। কখনো খুব ইচ্ছে করে, কোনো কারণ ছাড়াই তোমার সঙ্গে বসে গল্প করি।","You are far away, yet close in so many of my thoughts. Sometimes I just wish we could sit and talk for no reason."],
+["Long Distance","Miles Cannot Measure Us","Distance can keep our hands apart, but it cannot decide what we mean to each other. I look forward to the day we meet again.","দূরত্ব আমাদের হাত আলাদা রাখতে পারে, কিন্তু একে অপরের কাছে আমরা কতটা মূল্যবান তা ঠিক করতে পারে না। আবার দেখা হওয়ার অপেক্ষায় থাকি।"],
+["Long Distance","Under the Same Sky","We may be in different places, but we still look up at the same sky. Until we meet, take care of yourself for me.","আমরা আলাদা জায়গায় থাকলেও একই আকাশের নিচে আছি। আবার দেখা না হওয়া পর্যন্ত নিজের যত্ন নিয়ো, আমার জন্য।"],
+["Long Distance","One Day, Not Through a Screen","One day I hope we can share stories face to face instead of through a screen. Until then, you remain in my thoughts.","একদিন স্ক্রিনের ওপাশে নয়, সামনাসামনি বসে গল্প করব—এই আশা রাখি। ততদিন তুমি আমার ভাবনায় থেকো।"],
+["Long Distance","Worth the Wait","The waiting is not always easy, but every honest conversation reminds me why this connection matters to me.","অপেক্ষা সবসময় সহজ নয়, কিন্তু প্রতিটি আন্তরিক কথোপকথন মনে করিয়ে দেয় আমাদের সম্পর্কটা কেন আমার কাছে মূল্যবান।"],
+["Long Distance","Goodnight from Far Away","I wish I could say goodnight beside you. For now, let this message carry a little warmth across the distance.","তোমার পাশে থেকে শুভরাত্রি বলতে ইচ্ছে করে। আপাতত এই মেসেজটাই দূরত্ব পেরিয়ে তোমার কাছে একটু উষ্ণতা পৌঁছে দিক।"],
+["Long Distance","দূরত্ব শুধু মানচিত্রে","আমাদের মাঝে দূরত্ব আছে, কিন্তু অনুভূতিগুলোকে দূরে যেতে দিইনি। একদিন অপেক্ষার জায়গায় একসঙ্গে থাকার গল্প আসুক।","There is distance between us, but I have not let our feelings drift away. May togetherness replace waiting one day."],
+["Heartbreak","Some Stories Change Us","Not every love story lasts forever, but some change the way we understand ourselves. I will honour what was real and learn to heal.","সব ভালোবাসার গল্প চিরকাল থাকে না, কিন্তু কিছু গল্প আমাদের বদলে দেয়। যা সত্যি ছিল তাকে সম্মান করব, আর ধীরে ধীরে সেরে উঠব।"],
+["Heartbreak","Letting Go Gently","I can care about what we shared and still accept that it may be time to move on. Both feelings can be true.","আমাদের স্মৃতিকে মূল্য দিয়েও মেনে নিতে পারি যে সামনে এগোনোর সময় হয়েছে। দুটো অনুভূতিই একসঙ্গে সত্যি হতে পারে।"],
+["Heartbreak","A Goodbye Without Hate","I do not need to turn our memories into hatred just because things changed. I hope we both find peace.","সবকিছু বদলে গেছে বলে স্মৃতিগুলোকে ঘৃণায় বদলাতে চাই না। আশা করি আমরা দুজনেই শান্তি খুঁজে পাব।"],
+["Heartbreak","Some Pain Takes Time","I am learning that healing is not a straight line. Some days are lighter, some are heavy, and both are part of moving forward.","শিখছি, সেরে ওঠার পথ সবসময় সোজা নয়। কিছু দিন হালকা, কিছু দিন ভারী—দুটোই সামনে এগোনোর অংশ।"],
+["Heartbreak","You Mattered to Me","Whatever happens next, I will not pretend you meant nothing. You were important to me, and that part of my story is real.","এরপর যা-ই হোক, তুমি আমার কাছে কিছুই ছিলে না—এমন ভান করব না। তুমি গুরুত্বপূর্ণ ছিলে, আর সেই অধ্যায় সত্যি।"],
+["Heartbreak","A Chapter, Not My Whole Story","Losing a relationship does not mean losing my future. I can grieve what ended and still believe in better days.","একটা সম্পর্ক হারানো মানে ভবিষ্যৎ হারানো নয়। যা শেষ হয়েছে তার কষ্ট মেনে নিয়েও সুন্দর দিনের আশা রাখতে পারি।"],
+["Apology","I'm Truly Sorry","I am sorry I made you feel unheard. I cannot undo the moment, but I can listen, take responsibility, and work to do better.","তোমাকে অবহেলিত অনুভব করানোর জন্য আমি সত্যিই দুঃখিত। মুহূর্তটা ফিরিয়ে দিতে পারব না, তবে শুনতে, দায়িত্ব নিতে আর নিজেকে বদলাতে পারি।"],
+["Apology","More Than Just Sorry","I know an apology means little without change. I want to understand what hurt you and show through my actions that I care.","আমি জানি পরিবর্তন ছাড়া ক্ষমা চাওয়া যথেষ্ট নয়। কী তোমাকে কষ্ট দিয়েছে বুঝতে চাই, আর কাজে দেখাতে চাই যে আমি যত্ন করি।"],
+["Apology","Can We Talk Honestly?","I do not want pride to become bigger than our understanding. If you are ready, I would like to talk and listen without defending every mistake.","আমাদের বোঝাপড়ার চেয়ে অহংকার বড় হয়ে উঠুক চাই না। তুমি প্রস্তুত থাকলে কথা বলতে চাই, প্রতিটি ভুলের অজুহাত না দিয়ে শুনতে চাই।"],
+["Apology","I Should Have Listened","You deserved to be heard, not dismissed. I am sorry I did not give your feelings the attention they needed.","তোমার কথা শোনা উচিত ছিল, উড়িয়ে দেওয়া নয়। তোমার অনুভূতিকে প্রয়োজনীয় গুরুত্ব দিতে না পারার জন্য দুঃখিত।"],
+["Apology","I Want to Make It Right","I cannot demand immediate forgiveness. I can be patient, learn from this, and let my future actions speak honestly.","আমি সঙ্গে সঙ্গে ক্ষমা দাবি করতে পারি না। ধৈর্য ধরতে, ভুল থেকে শিখতে আর ভবিষ্যতের কাজে সততা দেখাতে পারি।"],
+["Apology","মন থেকে ক্ষমা চাই","আমার কথা বা কাজে তোমার কষ্ট হয়ে থাকলে আমি দুঃখিত। শুধু সরি নয়, তোমার কথা শুনে নিজের ভুল বুঝতে এবং ভালো হতে চাই।","I am sorry if my words or actions hurt you. I want to do more than say sorry; I want to listen and learn."],
+["Friendship","My Favourite Human","Thank you for being the person I can laugh with over nothing and talk to when everything feels heavy. Life is kinder with you.","কোনো কারণ ছাড়াই যার সঙ্গে হাসতে পারি, আর কঠিন সময়ে কথা বলতে পারি—এমন বন্ধু হওয়ার জন্য ধন্যবাদ। তুমি থাকায় জীবনটা সুন্দর।"],
+["Friendship","Friends Through Every Season","Life will change, plans will shift, but I hope we keep making room for honest conversations and ridiculous laughter.","জীবন বদলাবে, পরিকল্পনা পাল্টাবে, তবু আমাদের আন্তরিক কথা আর পাগলামি ভরা হাসির জন্য যেন জায়গা থাকে।"],
+["Friendship","Thank You for Understanding","You do not always need perfect advice. Sometimes your presence alone makes a hard day feel manageable. Thank you.","সবসময় নিখুঁত পরামর্শ দরকার হয় না। কখনো তোমার পাশে থাকাটাই কঠিন দিনকে সহজ করে দেয়। ধন্যবাদ।"],
+["Friendship","A Friend Like You","I hope life gives you the same kindness and support you have offered me. You deserve friends who show up for you too.","তুমি আমাকে যে মমতা আর সহায়তা দিয়েছ, জীবনও যেন তোমাকে তা ফিরিয়ে দেয়। তুমিও এমন বন্ধু পাও যারা তোমার পাশে থাকবে।"],
+["Friendship","More Memories Ahead","Here is to more late-night talks, shared jokes, spontaneous plans, and a friendship that grows with us.","আরও রাত জাগা গল্প, নিজেদের কৌতুক, হঠাৎ পরিকল্পনা আর আমাদের সঙ্গে বড় হতে থাকা বন্ধুত্বের জন্য।"],
+["Friendship","বন্ধু মানে তুমি","আমার হাসি, রাগ, পাগলামি আর মন খারাপের পাশে থাকার জন্য ধন্যবাদ। সময়ের সঙ্গে আমাদের বন্ধুত্ব আরও আপন হয়ে উঠুক।","Thank you for being there through my laughter, anger, silliness, and sadness. May our friendship grow closer with time."],
+["Feelings","A Feeling I Cannot Hide","I tried to keep this feeling quiet, but it keeps finding its way into my thoughts. I wanted to be honest, without expecting anything from you.","অনুভূতিটা লুকিয়ে রাখতে চেয়েছি, কিন্তু বারবার ভাবনায় ফিরে আসে। তোমার কাছ থেকে কিছু দাবি না করে শুধু সত্যিটা জানাতে চাইলাম।"],
+["Feelings","You Make Me Smile","Sometimes I catch myself smiling at a memory of you. It is a small feeling, but it makes ordinary moments brighter.","কখনো তোমার কথা মনে করে নিজের অজান্তেই হাসি। অনুভূতিটা ছোট হতে পারে, কিন্তু সাধারণ মুহূর্তগুলো সুন্দর করে দেয়।"],
+["Feelings","No Pressure, Just Honesty","I want to tell you how I feel without making you responsible for it. Your feelings and your choice matter too.","তোমার ওপর দায়িত্ব চাপাতে নয়, নিজের অনুভূতি জানাতে চাই। তোমার অনুভূতি আর সিদ্ধান্তও সমান গুরুত্বপূর্ণ।"],
+["Feelings","A Little Bit of Hope","I do not know where this feeling will lead, but I am glad I can be honest about it and let things unfold naturally.","এই অনুভূতি কোথায় নিয়ে যাবে জানি না, তবে সত্যি করে বলতে পারছি বলে ভালো লাগছে। সবকিছু স্বাভাবিকভাবে এগোক।"],
+["Feelings","Words I Have Kept Inside","There are things I have wanted to say for a while. Maybe the words are imperfect, but the feeling behind them is sincere.","অনেক দিন ধরে কিছু কথা বলতে চেয়েছি। কথাগুলো নিখুঁত না হলেও, এর পেছনের অনুভূতিটা আন্তরিক।"],
+["Feelings","তোমাকে একটা কথা বলি","তোমার সঙ্গে কথা বললে মন ভালো হয়ে যায়। এই অনুভূতিকে কোনো নাম দিতে তাড়াহুড়ো করছি না, শুধু বলতে চাই তুমি আমার কাছে বিশেষ।","Talking to you makes me feel better. I am not rushing to name this feeling; I just want you to know you are special to me."],
+["Thank You","You Made a Difference","Maybe you thought it was a small thing, but your kindness stayed with me. Thank you for making a difficult moment lighter.","হয়তো তুমি বিষয়টাকে ছোট ভেবেছিলে, কিন্তু তোমার আন্তরিকতা আমার মনে রয়ে গেছে। কঠিন মুহূর্তটা সহজ করার জন্য ধন্যবাদ।"],
+["Thank You","For Being There","Thank you for listening when I needed someone and respecting me when I needed space. I appreciate both more than I say.","যখন কাউকে দরকার ছিল তখন শোনার জন্য, আর যখন একটু জায়গা দরকার ছিল তখন সম্মান করার জন্য ধন্যবাদ।"],
+["Thank You","A Heartfelt Thank You","I may not always express it well, but your time, care, and kindness mean a lot to me. I am genuinely grateful.","সবসময় ভালোভাবে প্রকাশ করতে পারি না, কিন্তু তোমার সময়, যত্ন আর আন্তরিকতা আমার কাছে অনেক মূল্যবান। আমি সত্যিই কৃতজ্ঞ।"],
+["Thank You","Your Kindness Matters","Small acts of kindness can stay in someone's heart for years. Thank you for giving me a memory I can smile about.","ছোট্ট ভালো কাজও মানুষের মনে বছরের পর বছর থেকে যেতে পারে। এমন একটা স্মৃতি দেওয়ার জন্য ধন্যবাদ, যা মনে করে হাসতে পারি।"],
+["Thank You","I Appreciate You","Thank you for being yourself, for showing care in your own way, and for making the people around you feel seen.","নিজের মতো থাকার জন্য, নিজের উপায়ে যত্ন দেখানোর জন্য আর আশপাশের মানুষকে গুরুত্ব দেওয়ার অনুভূতি দেওয়ার জন্য ধন্যবাদ।"],
+["Thank You","তোমার জন্য কৃতজ্ঞ","আমার কথা শোনার, পাশে থাকার আর ছোট ছোট বিষয়েও যত্ন নেওয়ার জন্য ধন্যবাদ। হয়তো সবসময় বলি না, কিন্তু তোমার আন্তরিকতা অনেক মূল্যবান।","Thank you for listening, staying beside me, and caring about the little things. I may not say it often, but your kindness matters."],
+["Good Morning","A Gentle Morning Wish","Good morning! May today bring you a peaceful mind, a kind surprise, and one small reason to feel proud of yourself.","শুভ সকাল! আজ তোমার মনে শান্তি আসুক, ছোট্ট কোনো আনন্দ অপেক্ষা করুক, আর নিজের ওপর গর্ব করার একটা কারণ খুঁজে পাও।"],
+["Good Morning","Wake Up to Hope","A new morning does not solve everything, but it offers another chance to try. Take today one gentle step at a time.","নতুন সকাল সব সমস্যার সমাধান করে না, তবে আবার চেষ্টা করার সুযোগ দেয়। আজ ধীরে ধীরে, এক পা করে এগিয়ে চলো।"],
+["Good Night","Rest, My Dear","Good night. Put down the worries you cannot solve tonight. You deserve rest, warmth, and a fresh start tomorrow.","শুভরাত্রি। আজ রাতে যে দুশ্চিন্তার সমাধান সম্ভব নয়, সেগুলো একটু পাশে রাখো। তোমার বিশ্রাম, উষ্ণতা আর নতুন সকালের অধিকার আছে।"],
+["Good Night","One Last Thought","Before you sleep, remember that one difficult day does not define your whole life. Rest well; tomorrow is another page.","ঘুমানোর আগে মনে রেখো, একটা কঠিন দিন তোমার পুরো জীবনকে সংজ্ঞায়িত করে না। ভালো করে বিশ্রাম নাও, আগামীকাল নতুন পাতা।"],
+["Congratulations","You Did It","Congratulations! Your effort brought you here. Take a moment to enjoy what you have achieved before rushing toward the next goal.","অভিনন্দন! তোমার চেষ্টাই তোমাকে এখানে এনেছে। পরের লক্ষ্যে ছোটা শুরু করার আগে অর্জনটা একটু উপভোগ করো।"],
+["Congratulations","Proud of Your Journey","I am proud not only of what you achieved, but of the patience and courage it took to get here. Keep going at your own pace.","শুধু অর্জনের জন্য নয়, এখানে পৌঁছাতে তোমার যে ধৈর্য আর সাহস লেগেছে তার জন্যও গর্বিত। নিজের গতিতে এগিয়ে চলো।"],
+["Encouragement","You Can Begin Again","A setback is not the end of your story. Take what you learned, give yourself grace, and begin again when you are ready.","একটা বাধাই তোমার গল্পের শেষ নয়। যা শিখেছ তা সঙ্গে নাও, নিজেকে একটু ছাড় দাও, প্রস্তুত হলে আবার শুরু করো।"],
+["Encouragement","One Step at a Time","You do not have to solve your whole life today. Just take the next helpful step and give yourself credit for trying.","আজই পুরো জীবনের সমাধান করতে হবে না। শুধু পরের ভালো পদক্ষেপটা নাও, আর চেষ্টা করার জন্য নিজেকে কৃতিত্ব দাও।"],
+["Special Day","You Make Today Special","Some days become special because of the people we share them with. I am glad you are part of this one.","কিছু দিন বিশেষ হয়ে ওঠে যাদের সঙ্গে কাটাই তাদের কারণে। এই দিনের অংশ হিসেবে তোমাকে পেয়ে ভালো লাগছে।"],
+["Special Day","A Little Celebration","May this day bring a reason to pause, smile, and appreciate the good things growing in your life.","আজকের দিনটা যেন একটু থেমে হাসার, আর জীবনে বেড়ে ওঠা সুন্দর বিষয়গুলোর কদর করার কারণ হয়ে ওঠে।"],
+["Valentine","My Kind of Love","My favourite kind of love is honest, gentle, and free. It listens, respects, and keeps choosing care. Happy Valentine's Day.","আমার পছন্দের ভালোবাসা আন্তরিক, কোমল আর স্বাধীন। যে শোনে, সম্মান করে, আর যত্নকে বেছে নেয়। ভালোবাসা দিবসের শুভেচ্ছা।"],
+["Valentine","A Note for My Person","You do not need a special date to matter to me, but today is a lovely excuse to remind you. You are appreciated. ❤️","আমার কাছে গুরুত্বপূর্ণ হতে তোমার কোনো বিশেষ দিনের দরকার নেই, তবে আজ মনে করিয়ে দেওয়ার সুন্দর অজুহাত। তুমি আমার কাছে মূল্যবান। ❤️"],
+["Eid","Eid Mubarak, Dear One","Eid Mubarak! May your home be filled with peace, your heart with gratitude, and your days with the warmth of loved ones.","ঈদ মোবারক! তোমার ঘর শান্তিতে, হৃদয় কৃতজ্ঞতায় আর দিনগুলো আপনজনের ভালোবাসায় ভরে উঠুক।"],
+["Eid","A Heartfelt Eid Wish","May this Eid bring renewed hope, kind moments, and the joy of sharing with people who matter to you.","এই ঈদ তোমার জীবনে নতুন আশা, সুন্দর মুহূর্ত আর প্রিয় মানুষদের সঙ্গে আনন্দ ভাগ করে নেওয়ার সুযোগ নিয়ে আসুক।"],
+["New Year","A Fresh Chapter","May the new year bring clarity to your plans, courage for your dreams, and peace in the moments between them.","নতুন বছর তোমার পরিকল্পনায় স্বচ্ছতা, স্বপ্ন পূরণে সাহস আর মাঝের মুহূর্তগুলোতে শান্তি নিয়ে আসুক।"],
+["New Year","More Reasons to Smile","Here is to learning from yesterday, living kindly today, and meeting tomorrow with a little more hope.","গতকাল থেকে শেখা, আজ ভালোভাবে বাঁচা আর আগামীকালকে একটু বেশি আশা নিয়ে স্বাগত জানানোর জন্য শুভকামনা।"],
+["Wedding","A Beautiful Beginning","Wishing you both a marriage full of friendship, honest conversations, shared laughter, and kindness through every season.","তোমাদের দাম্পত্য জীবন বন্ধুত্ব, আন্তরিক কথা, একসঙ্গে হাসি আর সব পরিস্থিতিতে মমতায় ভরে উঠুক।"],
+["Wedding","Two Lives, One Journey","May you support each other's dreams, respect your differences, and keep building a home where both of you can grow.","তোমরা যেন একে অপরের স্বপ্নকে সমর্থন করো, ভিন্নতাকে সম্মান করো, আর এমন ঘর গড়ো যেখানে দুজনেই বিকশিত হতে পারো।"],
+["Farewell","Until We Meet Again","Goodbyes are difficult when people matter. I hope the memories stay warm and our paths cross again when the time is right.","মানুষ আপন হলে বিদায় কঠিন হয়। স্মৃতিগুলো উষ্ণ থাকুক, আর সময় হলে আমাদের পথ আবার এক হোক।"],
+["Farewell","Take Care of Yourself","As you begin this next chapter, take your courage with you and remember the good you bring into other people's lives.","নতুন অধ্যায় শুরু করার সময় সাহস সঙ্গে রেখো, আর মনে রেখো তুমি অন্য মানুষের জীবনে কতটা ভালো প্রভাব ফেলো।"],
+["Support","You Are Not a Burden","You do not have to pretend to be okay all the time. You deserve patience, support, and space to talk when you are ready.","সবসময় ভালো আছ এমন অভিনয় করতে হবে না। তোমার ধৈর্য, সহায়তা আর প্রস্তুত হলে কথা বলার জায়গা পাওয়ার অধিকার আছে।"],
+["Support","I Am Here to Listen","You do not need to find perfect words. If you want to talk, I will listen without rushing you to fix everything.","নিখুঁত শব্দ খুঁজতে হবে না। কথা বলতে চাইলে আমি শুনব, সবকিছু দ্রুত ঠিক করে ফেলতে চাপ দেব না।"],
+["Proud of You","Look How Far You Have Come","You have made it through days you once thought would be too hard. Give yourself credit for every step that brought you here.","যে দিনগুলো একসময় অসম্ভব কঠিন মনে হয়েছিল, সেগুলোও পেরিয়ে এসেছ। এখানে পৌঁছানোর প্রতিটি পদক্ষেপের জন্য নিজেকে কৃতিত্ব দাও।"],
+["Proud of You","Your Effort Counts","Even when nobody notices, your effort matters. Keep learning, keep resting when needed, and keep moving in a way that feels right.","কেউ খেয়াল না করলেও তোমার চেষ্টা মূল্যবান। শিখতে থাকো, দরকারে বিশ্রাম নাও, আর নিজের উপযোগীভাবে এগিয়ে চলো।"]
+];
+
+const messages=[];
+for(const [category,title,en,bn] of pairs){
+  messages.push({category,title,language:"English",text:en});
+  messages.push({category,title:bnTitle(title,bn),language:"বাংলা",text:bn});
+}
+function bnTitle(title,bn){
+  const first=bn.split(/[.!?।]/)[0].trim();
+  return first.length>2&&first.length<55?first:title+" — বাংলা";
+}
+const categories=["All",...new Set(messages.map(m=>m.category))];
+let active="All",editingId=null;
+const liked=new Set();
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function notify(s){const t=$("toast");t.textContent=s;t.classList.add("show");clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.classList.remove("show"),2300)}
+function getSaved(){try{const x=JSON.parse(localStorage.getItem("wishora_saved_v2")||"[]");return Array.isArray(x)?x:[]}catch(e){return []}}
+function storeSaved(x){try{localStorage.setItem("wishora_saved_v2",JSON.stringify(x));return true}catch(e){notify("Browser storage unavailable.");return false}}
+function renderCategories(){$("categories").innerHTML=categories.map(c=>`<button class="cat ${active===c?"active":""}" data-cat="${esc(c)}">${c==="All"?"✧ All feelings":esc(c)}</button>`).join("")}
+function renderMessages(){
+ const term=$("search").value.trim().toLowerCase(),lang=$("lang").value;
+ const list=messages.filter(m=>(active==="All"||m.category===active)&&(lang==="all"||m.language===lang)&&[m.title,m.category,m.text,m.language].join(" ").toLowerCase().includes(term));
+ $("count").textContent=`${list.length} messages ✧`;
+ $("grid").innerHTML=list.length?list.map((m,i)=>`<article class="card" style="animation-delay:${Math.min(i*15,180)}ms"><div class="cardtop"><span class="tag">${esc(m.category)} · ${esc(m.language)}</span><button class="heart" data-like="${m.id??esc(m.title)}" aria-label="Favourite">${liked.has(m.title)?"♥":"♡"}</button></div><h3>${esc(m.title)}</h3><p>${esc(m.text)}</p><div class="cardactions"><button class="btn primary small" data-use="${esc(m.title)}">✦ Make it mine</button><button class="btn small" data-copy="${esc(m.title)}">▣ Copy</button></div></article>`).join(""):'<div class="empty">No messages found. Try another search. ♡</div>';
+}
+function renderSaved(){
+ const items=getSaved();
+ $("savedList").innerHTML=items.length?items.map(x=>`<article class="saveditem"><span class="tag">${esc(x.category)} · ${esc(x.language)}</span><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p>${x.to?`<div class="sub">To: ${esc(x.to)}</div>`:""}<div class="cardactions"><button class="btn small" data-edit="${esc(x.id)}">Edit</button><button class="btn small" data-scopy="${esc(x.id)}">Copy</button><button class="btn small" data-del="${esc(x.id)}">Delete</button></div></article>`).join(""):'<div class="empty" style="grid-column:1/-1">Your collection is waiting for its first masterpiece. ♡</div>';
+}
+function getEditor(){return {title:$("title").value.trim(),category:$("category").value,language:$("ownlang").value,text:$("message").value.trim(),to:$("to").value.trim(),from:$("from").value.trim()}}
+function updatePreview(){
+ const x=getEditor();$("ptitle").textContent=x.title||"Your beautiful message";$("pto").textContent=x.to?"To: "+x.to:"";$("pmsg").textContent=x.text||"Your message will appear here as you write...";$("psign").textContent=x.from?"With love, "+x.from+" ♡":"With love, always ♡";
+}
+function fill(x){
+ $("title").value=x.title||"";$("category").value=categories.includes(x.category)?x.category:"Love";$("ownlang").value=["English","বাংলা","Mixed"].includes(x.language)?x.language:"English";$("message").value=x.text||"";$("to").value=x.to||"";$("from").value=x.from||"";editingId=x.id||null;$("save").textContent=editingId?"✦ Update my wish":"♡ Save my wish";updatePreview();$("create").scrollIntoView({behavior:"smooth"});
+}
+function clearEditor(){["title","to","from","message"].forEach(id=>$(id).value="");$("category").value="Love";$("ownlang").value="English";editingId=null;$("save").textContent="♡ Save my wish";updatePreview()}
+function format(x){return `${x.to?"To: "+x.to+"\n\n":""}${x.title?x.title+"\n\n":""}${x.text}${x.from?"\n\n— "+x.from:""}`}
+function copyText(s){
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(s).then(()=>notify("Copied with love! ♡")).catch(()=>fallback(s))}
+ else fallback(s);
+}
+function fallback(s){const t=document.createElement("textarea");t.value=s;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();try{notify(document.execCommand("copy")?"Copied with love! ♡":"Please select and copy manually.")}catch(e){notify("Please select and copy manually.")}t.remove()}
+$("categories").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(!b)return;active=b.dataset.cat;renderCategories();renderMessages()});
+$("search").addEventListener("input",renderMessages);$("lang").addEventListener("change",renderMessages);
+$("grid").addEventListener("click",e=>{
+ const use=e.target.closest("[data-use]"),copy=e.target.closest("[data-copy]"),like=e.target.closest("[data-like]");
+ if(use){const m=messages.find(x=>x.title===use.dataset.use);if(m)fill({...m,to:"",from:""});return}
+ if(copy){const m=messages.find(x=>x.title===copy.dataset.copy);if(m)copyText(format(m));return}
+ if(like){const m=messages.find(x=>x.title===like.dataset.like);if(m){liked.has(m.title)?liked.delete(m.title):liked.add(m.title);renderMessages();if(liked.has(m.title))notify("Added to favourites ♡")}}
+});
+["title","category","ownlang","message","to","from"].forEach(id=>{$(id).addEventListener("input",updatePreview);$(id).addEventListener("change",updatePreview)});
+$("save").addEventListener("click",()=>{
+ const x=getEditor();if(!x.title||!x.text){notify("Add a title and message first ♡");return}
+ const a=getSaved();
+ if(editingId){const i=a.findIndex(y=>y.id===editingId);if(i>=0)a[i]={...a[i],...x};else a.unshift({...x,id:editingId})}
+ else a.unshift({...x,id:"w_"+Date.now()+"_"+Math.random().toString(36).slice(2,7)});
+ if(storeSaved(a)){renderSaved();notify("Your wish has been saved ♡");clearEditor()}
+});
+$("clear").addEventListener("click",clearEditor);
+$("inspire").addEventListener("click",()=>{const m=messages[Math.floor(Math.random()*messages.length)];fill({...m,to:"",from:""})});
+$("copyown").addEventListener("click",()=>{const x=getEditor();if(!x.text)return notify("Write something first ♡");copyText(format(x))});
+$("heartbtn").addEventListener("click",()=>{for(let i=0;i<12;i++){const el=document.createElement("span");el.textContent=["♡","💗","♥","✦"][i%4];el.style.cssText=`position:fixed;left:${40+Math.random()*20}%;top:${40+Math.random()*20}%;font-size:${16+Math.random()*20}px;pointer-events:none;z-index:50;transition:1s;`;document.body.appendChild(el);requestAnimationFrame(()=>{el.style.transform=`translate(${Math.random()*150-75}px,-140px) rotate(30deg)`;el.style.opacity="0"});setTimeout(()=>el.remove(),1100)}notify("A little love, just for you ♡")});
+$("savedList").addEventListener("click",e=>{
+ const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-del]"),copy=e.target.closest("[data-scopy]");
+ if(edit){const x=getSaved().find(y=>y.id===edit.dataset.edit);if(x)fill(x)}
+ if(del){if(storeSaved(getSaved().filter(y=>y.id!==del.dataset.del))){renderSaved();notify("Wish deleted.")}}
+ if(copy){const x=getSaved().find(y=>y.id===copy.dataset.scopy);if(x)copyText(format(x))}
+});
+$("clearSaved").addEventListener("click",()=>{if(!getSaved().length)return notify("Collection is already empty.");if(confirm("Clear all saved wishes from this browser?")){if(storeSaved([])){renderSaved();notify("Collection cleared.")}}});
+renderCategories();renderMessages();renderSaved();updatePreview();
+</script>
+</body>
+</html>
